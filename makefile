@@ -25,3 +25,7 @@ do-release-%:
 	bump2version --allow-dirty $*
 	$(MAKE) changelog
 	git push origin main --tags
+
+install:
+	@echo "Copying binary to /usr/local/bin"
+	@find bin/ -type f | xargs -I@ sudo cp @ /usr/local/bin/
