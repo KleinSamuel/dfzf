@@ -167,7 +167,7 @@ function entries() {
 function run-desktop() {
 	CMD="$("${0}" generate-command "$@" 2>&3)"
 	echo "Generated Launch command from .desktop file: ${CMD}" >&3
-	dfzf-focus focus >/dev/null
+	#dfzf-focus focus >/dev/null
 	dfzf-exec -q "exec ${CMD}"
 }
 function generate-command() {
