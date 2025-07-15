@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+HISTORY_FILE="$HOME/.cache/dfzf-focus-history"
+
+echo "$(date +%s) $1" >> "$HISTORY_FILE"
+
+# Keep only last 1000 entries
+tail -n 1000 "$HISTORY_FILE" > "$HISTORY_FILE.tmp" && mv "$HISTORY_FILE.tmp" "$HISTORY_FILE"

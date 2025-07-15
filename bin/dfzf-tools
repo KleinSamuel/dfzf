@@ -4,7 +4,7 @@ set -euo pipefail
 export SHELL="$(command -v bash)"
 dfzf-kill-bro >/dev/null
 
-tools_top_cmd="gotop"
+tools_top_cmd="btop"
 tools_calendar_cmd="khal interactive"
 tools_clock_cmd="tty-clock -c -C 4 -s"
 tools_wifi_cmd="nmtui connect"

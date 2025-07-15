@@ -66,8 +66,25 @@ result=$(
       }
       
     | "\(.sort)\(if .urgent then "\u001b[33m" else "" end)\(.glyph) [\(.app_id)]\(if .urgent then "\u001b[0m" else "" end)\t\(.red)\(.blue)\(.green) \(format_title(.name)) #\(.id)"
-  ' | sort -nr |
-		sed -E 's/_dfzf-sort-[0-9]*//; s/'"$windows_title_rm_pattern"'//' |
+	' | {
+    # Read focus history
+    HISTORY_FILE="$HOME/.cache/dfzf-focus-history"
+    if [[ -f "$HISTORY_FILE" ]]; then
+        # Create temporary file with timestamps
+        temp_file=$(mktemp)
+        while IFS= read -r line; do
+            window_id=$(echo "$line" | grep -o '#[0-9]*' | tr -d '#')
+            timestamp=$(grep " $window_id$" "$HISTORY_FILE" | tail -1 | cut -d' ' -f1)
+            echo "${timestamp:-0} $line"
+        done > "$temp_file"
+        sort -nr "$temp_file" | cut -d' ' -f2-
+        rm "$temp_file"
+    else
+        cat
+    fi
+	} | sed -E 's/_dfzf-sort-[0-9]*//; s/'"$windows_title_rm_pattern"'//' |
+#  ' | sort -nr |
+#		sed -E 's/_dfzf-sort-[0-9]*//; s/'"$windows_title_rm_pattern"'//' |
 		perl -pe '
   use Term::ANSIColor;
   BEGIN {
