@@ -4,6 +4,12 @@
 
 No more mental gymnastics. Just type to fuzzy-match and access recent windows first — eventually, you’ll rely solely on **dfzf-windows** for seamless navigation.
 
+## SWAY CONFIG
+```
+# track focus changes of windows
+exec_always --no-startup-id swaymsg -t subscribe -m '["window"]' | jq --unbuffered -r 'select(.change=="focus") | .container.id' | xargs -I {} dfzf-focus-tracker {}
+```
+
 ![Demo](https://github.com/user-attachments/assets/ab181f25-622b-4aaf-931a-ee5d07371853)
 <details>
   <summary>Click to expand description of the GIF</summary>
