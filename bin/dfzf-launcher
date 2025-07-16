@@ -166,7 +166,6 @@ function entries() {
 }
 function run-desktop() {
 	CMD="$("${0}" generate-command "$@" 2>&3)"
-	echo "Generated Launch command from .desktop file: ${CMD}" >&3
 	#dfzf-focus focus >/dev/null
 	dfzf-exec -q "exec ${CMD}"
 }
@@ -305,7 +304,6 @@ describe | describe-desktop | describe-command | entries | list-entries | list-c
 	exit
 	;;
 esac
-echo "Starting launcher instance with the following providers:" "${!PROVIDERS[@]}" >&3
 
 FZFPIPE=$(mktemp -u)
 mkfifo "$FZFPIPE"
