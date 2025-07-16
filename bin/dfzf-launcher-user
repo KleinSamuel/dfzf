@@ -43,7 +43,7 @@ function describe() {
 }
 function describe-desktop() {
 	description=$(sed -ne '/^Comment=/{s/^Comment=//;p;q}' "$1")
-	echo -e "\033[33m$(sed -ne '/^Name=/{s/^Name=//;p;q}' "$1")\033[0m"
+	echo "$(sed -ne '/^Name=/{s/^Name=//;p;q}' "$1")"
 	echo "${description:-No description}"
 }
 
@@ -104,11 +104,11 @@ function entries() {
     ENDFILE{
       if (application){
           if (!hidden)
-              print FILENAME "\034desktop\034\033[33m" pre name "\033[0m";
+              print FILENAME "\034desktop\034" pre name;
           if (a>0)
               for (i=1; i<=a; i++)
                   if (!actions[i, "hidden"])
-                      print FILENAME "\034desktop\034\033[33m" pre name "\033[0m (" actions[i, "name"] ")\034" actions[i, "key"]
+                      print FILENAME "\034desktop\034" pre name " (" actions[i, "name"] ")\034" actions[i, "key"]
       }
     }' \
 		$@ </dev/null
