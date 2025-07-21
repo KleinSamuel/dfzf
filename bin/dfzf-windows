@@ -70,8 +70,6 @@ fi
 
 result=$(dfzf-windows-load "$current_tree")
 
-echo "Result: $result"
-
 dfzf-exec '[con_id='"$(head -n1 <<<"$result" | extract_con_id)"']' floating disable
 
 fzf --sync --multi --prompt "$PROMPT" \
