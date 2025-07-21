@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -eq 0 ]]; then
+	echo "Usage: $0 <script_path>"
+	exit 1
+fi
+
+SCRIPT_PATH="$1"
+
+export SHELL="$(command -v bash)"
+
+export FZF_DEFAULT_OPTS="--ansi --no-sort --exact --cycle --color=gutter:-1 --header= --info=inline-right --margin=1,2"
+
+result=$($SCRIPT_PATH functions)
+
+fzf \
+	--sync \
+	--prompt "> " \
+	--bind "start:up" \
+	--bind "change:first" \
+	--bind="enter:execute-silent($SCRIPT_PATH {})+accept" <<< "$result"
