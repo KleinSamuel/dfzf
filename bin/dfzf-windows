@@ -68,7 +68,11 @@ else
 	PREVIEW_WINDOW='up:3,wrap'
 fi
 
-result=$(dfzf-windows-load "$current_tree")
+result=$(cat <(dfzf-windows-load "$current_tree") <(dfzf-windows-load-tmux sessions))
+
+echo "$result"
+
+# result=$(cat <(echo "$result") <(get_tmux_sessions_with_con_id))
 
 dfzf-exec '[con_id='"$(head -n1 <<<"$result" | extract_con_id)"']' floating disable
 
